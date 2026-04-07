@@ -1,17 +1,25 @@
-# MambaStrip 🚀
+# MambaStrip: Image Compression with State Space Models
 
-High-Efficiency Image Compression using State Space Models (Mamba)
+## 🚀 Overview
+MambaStrip is a novel image compression framework that leverages State Space Models (SSMs) for efficient sequence-based image modeling.
 
-## Features
-- Strip-based image modeling
-- Mamba-inspired architecture
-- Efficient compression
+## 💡 Key Idea
+Instead of traditional CNNs or Transformers, we convert images into vertical and horizontal strips and process them using Mamba-based sequence modeling.
 
-## Structure
-- src/models: core models
-- src/data: dataset handling
-- scripts: training scripts
+## 🧠 Architecture
+Image → Strips (Vertical + Horizontal) → Embedding → Mamba → Bottleneck → Decoder → Reconstruction
 
-## Setup
+## 📊 Results
+| Method | PSNR |
+|--------|------|
+| MambaStrip | ~13 dB |
+| JPEG | ~28 dB |
+
+## ⚡ Features
+- Dual-direction strip modeling
+- Lightweight architecture
+- Sequence-based compression
+
+## 🛠 Installation
 ```bash
 pip install -r requirements.txt

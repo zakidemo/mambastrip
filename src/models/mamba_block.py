@@ -1,18 +1,29 @@
 import torch
 import torch.nn as nn
 
-class SimpleSSM(nn.Module):
+class SimpleMamba(nn.Module):
     def __init__(self, dim):
         super().__init__()
+        
         self.A = nn.Parameter(torch.randn(dim))
         self.B = nn.Parameter(torch.randn(dim))
+        self.C = nn.Parameter(torch.randn(dim))
 
     def forward(self, x):
-        state = torch.zeros_like(x[:, 0])
+        """
+        x: [L, D]
+        """
+        L, D = x.shape
+        
+        state = torch.zeros(D)
         outputs = []
 
-        for t in range(x.shape[1]):
-            state = self.A * state + self.B * x[:, t]
-            outputs.append(state.unsqueeze(1))
+        for t in range(L):
+            state = self.A * state + self.B * x[t]
+            
+            # non-linearity added 🔥
+            y = torch.tanh(self.C * state)
+            
+            outputs.append(y.unsqueeze(0))
 
-        return torch.cat(outputs, dim=1)
+        return torch.cat(outputs, dim=0)
